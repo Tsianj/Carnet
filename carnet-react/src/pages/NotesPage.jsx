@@ -3,7 +3,7 @@ import notesService from "../services/notesService";
 import Notes from '../components/Notes';
 import AuthContext from '../components/AuthContext';
 
-const CarnetPage = () => {
+const NotesPage = () => {
     const [notes, setNotes] = useState([]);
     const {user} = useContext(AuthContext);
 
@@ -24,13 +24,10 @@ const CarnetPage = () => {
     console.log(user);
     return <main>
         <div className="card-container">
-        {notes.map(note => {
-            return <Notes key={note.id_carnet} notes={note}/>
-        })}
-        
+        <Notes />
         </div>
     </main>;
 
 };
 
-export default CarnetPage;
+export default NotesPage;

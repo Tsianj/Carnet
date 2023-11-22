@@ -12,7 +12,7 @@ const fetchNotes = () => {
 }
 const addNotes = (notes) => {
     return new Promise((resolve, reject) => {
-        let sql = `INSERT INTO notes(titre, contenu) VALUES ('${notes.titre}', '${notes.contenu}')`;
+        let sql = `INSERT INTO notes(titre, contenu, id_utilisateur) VALUES ('${notes.titre}', '${notes.contenu}', ${notes.id_utilisateur})`;
         let query = conn.query(sql, (err, result, field) => {
             if(err) return reject(err);
             resolve(result);

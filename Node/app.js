@@ -1,6 +1,5 @@
 const express = require("express");
 const notes = require("./modules/notes");
-const carnet = require("./modules/carnet");
 const utilisateur = require("./modules/utilisateur");
 const utilisateurService = require("./services/utilisateurService");
 
@@ -28,7 +27,6 @@ app.use(
 //         }
 //     }));
 
-app.use("/carnet", carnet);
 app.use("/utilisateur", utilisateur);
 app.use("/notes", notes);
 app.post("/connexion", (req, res) => {

@@ -100,7 +100,10 @@ main {
   z-index: 2;
   transform: skewX(25deg);
 }
-
+#button_princ:hover {
+    transform: translateY(-5px); /* Déplace le bouton vers le haut au survol */
+    transition: transform 0.3s ease; /* Ajoute une transition fluide */
+  }
 h1 {
   margin: 10px !important;
   text-align: center;

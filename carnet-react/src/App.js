@@ -1,6 +1,6 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './App.css';
-import CarnetPage from './pages/CarnetPage';
+import NotesPage from './pages/NotesPage';
 import HomePage from './pages/HomePage';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -24,7 +24,7 @@ function App() {
       <Navbar />
         <Routes>
           <Route path={"/"} element={<HomePage />}/>
-          <Route path={"/carnet"} element={<CarnetPage />}/>
+          <Route path={"/notes"} element={<NotesPage />}/>
         </Routes>
       </BrowserRouter>
       <ToastContainer

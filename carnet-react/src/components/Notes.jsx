@@ -1,14 +1,16 @@
 import React from 'react';
-import { useState } from 'react';
+import { useState, useContext} from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
 import { toast } from 'react-toastify';
 import notesService from "../services/notesService";
+import AuthContext from './AuthContext';
+
 
 function Notes() {
   const [show, setShow] = useState(false);
-
+  const {user} = useContext(AuthContext)
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const [notes, setNotes] = useState({});
@@ -17,9 +19,12 @@ function Notes() {
     setNotes({...notes, [name] : value})
 }
 
-const handleAdd = () => {
+
+const handleAdd = async () => {
     try{
-        const response = notesService.addNotes(notes);
+      notes.id_utilisateur = user.id_utilisateur;
+        const response = await notesService.addNotes(notes);
+        console.log(response);
         toast.success("La note "+ notes.titre + " à bien été crée");
         setShow(false)
         
@@ -32,7 +37,8 @@ const handleAdd = () => {
 
   return (
     <>
-      <Button variant="primary" onClick={handleShow}>
+
+      <Button id='button_princ' variant="primary" onClick={handleShow}>
         Ajouter une note
       </Button>
 
