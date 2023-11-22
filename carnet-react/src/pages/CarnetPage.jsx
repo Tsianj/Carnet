@@ -22,12 +22,14 @@ const CarnetPage = () => {
 
 
     console.log(user);
-    return <div className="card-container">
+    return <main>
+        <div className="card-container">
         {notes.map(note => {
             return <Notes key={note.id_carnet} notes={note}/>
         })}
         
-    </div>;
+        </div>
+    </main>;
 
 };
 

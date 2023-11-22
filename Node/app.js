@@ -2,16 +2,18 @@ const express = require("express");
 const notes = require("./modules/notes");
 const carnet = require("./modules/carnet");
 const utilisateur = require("./modules/utilisateur");
-const utilisateurService = require("./services/utilisateurService")
+const utilisateurService = require("./services/utilisateurService");
 
 const cors = require("cors");
 const app = express();
 const port = 3000;
 app.use(express.json());
 
-app.use(cors({
-    origin: '*'
-}));
+app.use(
+  cors({
+    origin: "*",
+  })
+);
 // const allowedOrigins = ['http://localhost:3001/',
 //     'http://127.0.0.1:3001/'];
 
@@ -29,16 +31,21 @@ app.use(cors({
 app.use("/carnet", carnet);
 app.use("/utilisateur", utilisateur);
 app.use("/notes", notes);
-app.post("/connexion", (req, res)=>{
-    let data = req.body;
-    utilisateurService.connUtilisateur(data).then(result => {
-        res.status(201)
-        res.json(result[0])
-    }).catch(err => {
-        console.log(err)
-        res.send({"message" : "Votre ajout ne s'est pas bien passé"})
+app.post("/connexion", (req, res) => {
+  let data = req.body;
+  utilisateurService
+    .connUtilisateur(data)
+    .then((result) => {
+      res.status(201);
+      res.json(result[0]);
     })
-});
-    app.listen(port, () => {
-        console.log(`Application exemple à l'écoute sur le port http://127.0.0.1:${port}/ !`);
+    .catch((err) => {
+      console.log(err);
+      res.send({ message: "Votre ajout ne s'est pas bien passé" });
     });
+});
+app.listen(port, () => {
+  console.log(
+    `Application exemple à l'écoute sur le port http://127.0.0.1:${port}/ !`
+  );
+});

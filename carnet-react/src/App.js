@@ -8,6 +8,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { useState } from 'react';
 import AuthContext from './components/AuthContext';
 import Auth from './services/Auth';
+import Navbar from './components/NavBar';
 
 Auth.setup();
 
@@ -20,6 +21,7 @@ function App() {
     <AuthContext.Provider
     value={{isAuthenticated, setIsAuthenticated, user, setUser}}>
       <BrowserRouter>
+      <Navbar />
         <Routes>
           <Route path={"/"} element={<HomePage />}/>
           <Route path={"/carnet"} element={<CarnetPage />}/>

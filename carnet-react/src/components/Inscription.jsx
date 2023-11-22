@@ -30,7 +30,7 @@ function Inscription() {
 
   return (
     <>
-      <Button variant="primary" onClick={handleShow}>
+      <Button id='button_princ' variant="primary" onClick={handleShow}>
         Inscription
       </Button>
 
