@@ -1,0 +1,25 @@
+const express = require("express");
+
+const notesService = require("../services/notesService");
+const router = express.Router();
+
+router.get("/", (req, res) => {
+    notesService.fetchNotes().then(result => {
+        res.status(200)
+        res.json(result);
+    }).catch(err => {
+        console.error("Oops...", err);
+        res.json({"message" : "Error" + err.sqlMessage})
+    });
+});
+router.post('/', (req, res) => {
+    let data = req.body;
+    notesService.addNotes(data).then(result => {
+        res.status(201)
+        res.json(data)
+    }).catch(err => {
+        console.log(err)
+        res.send({"message" : "Votre ajout ne s'est pas bien passé"})
+    })
+});
+module.exports = router;
