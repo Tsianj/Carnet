@@ -19,7 +19,17 @@ const addNotes = (notes) => {
         });
     });
 }
+const fetchNotesByIdUti = (user) => {
+    return new Promise((resolve, reject) => {
+        let sql = `SELECT * FROM notes WHERE id_utilisateur = ` + user;
+        let query = conn.query(sql, (err, result, field) => {
+            if(err) return reject(err);
+            resolve(result);
+        });
+    });
+}
 module.exports= {
     fetchNotes,
-    addNotes
+    addNotes,
+    fetchNotesByIdUti
 }

@@ -8,7 +8,7 @@ import notesService from "../services/notesService";
 import AuthContext from './AuthContext';
 
 
-function Notes() {
+function Notes({fetchNotesByIdUti}) {
   const [show, setShow] = useState(false);
   const {user} = useContext(AuthContext)
   const handleClose = () => setShow(false);
@@ -27,6 +27,7 @@ const handleAdd = async () => {
         console.log(response);
         toast.success("La note "+ notes.titre + " à bien été crée");
         setShow(false)
+        fetchNotesByIdUti()
         
     }catch (e){
         console.log(e)

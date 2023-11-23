@@ -13,7 +13,15 @@ main {
   display: flex;
   align-items: center;
   justify-content: center;
-  /* background: linear-gradient(#4E878C, #B5FFE1); */
+  background-position: center;
+  background-image: linear-gradient(
+      rgba(255, 255, 255, 0.5),
+      rgba(255, 255, 255, 0.5)
+    ),
+    url(https://img.freepik.com/photos-gratuite/arriere-plan-bois_1339-5418.jpg?w=1060&t=st=1700660735~exp=1700661335~hmac=4745495752bb983274872268dde622a9413b269517c5d4ec92db0ffa5c7f8d5c);
+  background-size: cover;
+  width: 100%;
+  height: 100%;
 }
 
 .container {
@@ -24,6 +32,7 @@ main {
   justify-content: space-between;
   align-items: center;
   height: 100%;
+  
 }
 
 .navbar {
@@ -68,7 +77,6 @@ main {
   height: 2px;
   background-color: #574c4c;
 }
-
 #button_princ {
   margin: 30px;
   color: black;
@@ -81,7 +89,7 @@ main {
   border-radius: 0 0 0 30px/45px;
   border: 0px;
   box-shadow: inset 0 -40px 40px rgba(0, 0, 0, 0.2),
-    inset 0 25px 10px rgba(0, 0, 0, 0.2), 0 5px 6px 5px rgba(0, 0, 0, 0.2);
+    inset 0 15px 10px rgba(0, 0, 0, 0.2), 0 5px 6px 5px rgba(0, 0, 0, 0.2);
   font-family: "Permanent Marker", cursive;
   font-size: 19px;
 }
@@ -100,14 +108,127 @@ main {
   z-index: 2;
   transform: skewX(25deg);
 }
-#button_princ:hover {
-    transform: translateY(-5px); /* Déplace le bouton vers le haut au survol */
-    transition: transform 0.3s ease; /* Ajoute une transition fluide */
-  }
+
 h1 {
   margin: 10px !important;
   text-align: center;
 }
 p {
   text-align: center;
+}
+
+#button_princ:hover {
+  transform: translateY(-5px); /* Déplace le bouton vers le haut au survol /
+  transition: transform 0.3s ease; / Ajoute une transition fluide */
+}
+
+.formulaire {
+  background-color: #4e878c;
+}
+
+.background-formulaire {
+  background-image: url(https://img.freepik.com/photos-gratuite/arriere-plan-bois_1339-5418.jpg?w=1060&t=st=1700660735~exp=1700661335~hmac=4745495752bb983274872268dde622a9413b269517c5d4ec92db0ffa5c7f8d5c);
+}
+
+.title-formulaire {
+  font-family: "Permanent Marker", cursive;
+}
+.postit {
+  margin: 30px;
+  color: black;
+  width: 250px !important;
+  height: 240px !important;
+  position: relative;
+  background: #ffa !important;
+  overflow: hidden;
+  padding: 20px;
+  border-radius: 0 0 0 30px/45px !important;
+  border: 0px;
+  box-shadow: inset 0 -40px 40px rgba(0, 0, 0, 0.2),
+    inset 0 15px 10px rgba(0, 0, 0, 0.2), 0 5px 6px 5px rgba(0, 0, 0, 0.2);
+  font-family: "Permanent Marker", cursive;
+  font-size: 19px;
+  
+}
+
+.postit::before {
+  content: "";
+  display: block;
+  position: absolute;
+  width: 20px;
+  height: 25px;
+  background: #ffa;
+  box-shadow: 3px -2px 10px rgba(0, 0, 0, 0.2) ,
+    inset 15px -15px 15px rgba(0, 0, 0, 0.3) ;
+  left: 0;
+  bottom: 0;
+  z-index: 2;
+  transform: skewX(25deg);
+}
+.notes-container{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 20px;
+}
+.position-notes{
+  margin: 0 auto;
+  padding: 0 15px;
+  display: flex;
+  flex-direction: column; /* Affichage des éléments en colonne */
+  align-items: center;
+}
+.card-buttons {
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  align-self: flex-end;
+  gap: 10px;
+  margin-top: auto;
+}
+
+.card-buttons button {
+  opacity: 0.7; /* Opacité des boutons au repos */
+  transition: opacity 0.3s ease; /* Transition fluide */
+}
+
+.card-buttons button:hover {
+  opacity: 1; /* Opacité des boutons au survol */
+}
+
+.colors_button{
+  display: block;
+}
+/* Couleur */
+.postit_vert {
+  background-color: lightgreen;
+  width: 20px;
+  height: 20px;
+  border: 2px solid black;
+  margin: 2px;
+
+}
+
+.postit_corail {
+  background-color: lightcoral;
+  width: 20px;
+  height: 20px;
+  border: 2px solid black;
+  margin: 2px;
+}
+
+.postit_bleu {
+  background-color: lightsteelblue;
+  width: 20px;
+  height: 20px;
+  border: 2px solid black;
+  margin: 2px;
+}
+
+.postit_jaune {
+  background-color: #ffa;
+  width: 20px;
+  height: 20px;
+  border: 2px solid black;
+  margin: 2px;
 }

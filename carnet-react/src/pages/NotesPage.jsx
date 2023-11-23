@@ -2,14 +2,15 @@ import React, {useContext, useEffect, useState} from 'react';
 import notesService from "../services/notesService";
 import Notes from '../components/Notes';
 import AuthContext from '../components/AuthContext';
+import NotesAffichage from '../components/NotesAffichage';
 
 const NotesPage = () => {
     const [notes, setNotes] = useState([]);
     const {user} = useContext(AuthContext);
 
-    const fetchNotes = async () => {
+    const fetchNotesByIdUti = async () => {
         try {
-            const response = await notesService.fetchNotes();
+            const response = await notesService.fetchNotesByIdUti(user.id_utilisateur);
             setNotes(response.data)
         } catch (e) {
             console.log(e)
@@ -17,14 +18,18 @@ const NotesPage = () => {
     }
 
     useEffect(() => {
-        fetchNotes()
+        fetchNotesByIdUti()
     }, []);
 
 
     console.log(user);
-    return <main>
+    return <main className='position-notes'>
         <div className="card-container">
-        <Notes />
+        <Notes fetchNotesByIdUti={fetchNotesByIdUti}/>
+        </div>
+        <div className="notes-container">
+            {notes.map(n => {
+            return <NotesAffichage key={notes.id_notes} notes={n}/>})}
         </div>
     </main>;
 
