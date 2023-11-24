@@ -37,9 +37,19 @@ const deleteNoteById = (notesId) => {
         });
     });
 }
+const modifyNoteById = (notesId, notes) => {
+    return new Promise((resolve, reject) => {
+        let sql = `UPDATE notes SET titre = '${notes.titre}', contenu = '${notes.contenu}' WHERE id_notes = ` + notesId;
+        let query = conn.query(sql, (err, result, field) => {
+            if(err) return reject(err);
+            resolve(result);
+        });
+    });
+}
 module.exports= {
     fetchNotes,
     addNotes,
     fetchNotesByIdUti,
-    deleteNoteById
+    deleteNoteById,
+    modifyNoteById
 }

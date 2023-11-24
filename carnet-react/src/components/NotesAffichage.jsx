@@ -3,12 +3,15 @@ import { Button } from 'react-bootstrap';
 import Card from "react-bootstrap/Card";
 import { FaPencilAlt, FaTrash } from 'react-icons/fa'; // Importer les icônes de Font Awesome (ici, les icônes crayon et poubelle)
 import notesService from '../services/notesService';
-
+import Form from 'react-bootstrap/Form';
+import Modal from 'react-bootstrap/Modal';
 
 const NotesAffichage = ({notes, fetchNotes}) => {
     const [divColor, setDivColor] = useState("#ffa");
-    const [noteId, setNoteId] = useState();
-
+    const [show, setShow] = useState(false);
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+    const [currentNotes , setCurrentNotes] = useState(notes)
     const changeColor = (newColor) => {
       setDivColor(newColor);
     };
@@ -24,12 +27,26 @@ const NotesAffichage = ({notes, fetchNotes}) => {
     };
     const handleDelete = async () => {
         try {
-          await notesService.deleteNoteById(noteId);
+          await notesService.deleteNoteById(notes.id_notes);
           fetchNotes(); // Actualiser les notes après la suppression
         } catch (error) {
           console.error('Erreur lors de la suppression de la note : ', error);
         }
       };
+      const handleChange = (event) => {
+        const {name, value} = event.currentTarget;
+        setCurrentNotes({...currentNotes, [name] : value})
+    }
+    const handleModify = async () => {
+      try {
+        await notesService.modifyNoteById(notes.id_notes, currentNotes);
+        fetchNotes();
+        handleClose()
+      }catch (error) {
+        console.log('Erreur lors de la modification de la note : ', error);
+      }
+    }
+
     return (<>
 
         <Card
@@ -70,6 +87,7 @@ const NotesAffichage = ({notes, fetchNotes}) => {
                 className="text-dark p-0 opacity-70"
                 title="Modifier"
                 aria-label="Modifier"
+                onClick={handleShow}
               >
                 <FaPencilAlt size={20} style={{ color: "black" }} />
               </Button>
@@ -83,10 +101,42 @@ const NotesAffichage = ({notes, fetchNotes}) => {
               >
                 <FaTrash size={20} style={{ color: "black" }} />
               </Button>
+
+
             </>
           )}
         </div>
       </Card>
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Note</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Form>
+            <Form.Group className="mb-3" >
+              <Form.Label>Titre</Form.Label>
+              <Form.Control value={currentNotes.titre} onChange={handleChange} name="titre"
+                type="text"
+                placeholder="Entrez votre titre"
+                autoFocus
+              />
+            </Form.Group>
+            <Form.Group
+              className="mb-3">
+              <Form.Label>Texte</Form.Label>
+              <Form.Control as="textarea" rows={5} value={currentNotes.contenu} onChange={handleChange} name="contenu" />
+            </Form.Group>
+          </Form>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Fermer
+          </Button>
+          <Button variant="primary" onClick={handleModify}>
+            Enregistrer
+          </Button>
+        </Modal.Footer>
+      </Modal>
       </>);
 };
 
