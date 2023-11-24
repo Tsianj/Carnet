@@ -1,57 +1,67 @@
-import React, {  useState } from 'react';
-import { Button } from 'react-bootstrap';
+import React, { useState } from "react";
+import { Button } from "react-bootstrap";
 import Card from "react-bootstrap/Card";
-import { FaPencilAlt, FaTrash } from 'react-icons/fa'; // Importer les icônes de Font Awesome (ici, les icônes crayon et poubelle)
-import notesService from '../services/notesService';
-import Form from 'react-bootstrap/Form';
-import Modal from 'react-bootstrap/Modal';
+import { FaPencilAlt, FaTrash } from "react-icons/fa"; // Importer les icônes de Font Awesome (ici, les icônes crayon et poubelle)
+import notesService from "../services/notesService";
+import Form from "react-bootstrap/Form";
+import Modal from "react-bootstrap/Modal";
 
-const NotesAffichage = ({notes, fetchNotes}) => {
-    const [divColor, setDivColor] = useState("#ffa");
-    const [show, setShow] = useState(false);
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
-    const [currentNotes , setCurrentNotes] = useState(notes)
-    const changeColor = (newColor) => {
+const NotesAffichage = ({ notes, fetchNotes }) => {
+  const [divColor, setDivColor] = useState("#ffa");
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+  const [currentNotes, setCurrentNotes] = useState(notes);
+
+  const changeColor = async (newColor) => {
+    try {
+      notes.couleur = newColor;
+      await notesService.modifyNoteById(notes.id_notes, notes);
       setDivColor(newColor);
-    };
-  
-    const [hovered, setHovered] = useState(false); // État pour gérer le survol
-
-    const handleMouseEnter = () => {
-        setHovered(true); // Définir hovered à true au survol de la carte
-    };
-
-    const handleMouseLeave = () => {
-        setHovered(false); // Définir hovered à false lorsque la souris quitte la carte
-    };
-    const handleDelete = async () => {
-        try {
-          await notesService.deleteNoteById(notes.id_notes);
-          fetchNotes(); // Actualiser les notes après la suppression
-        } catch (error) {
-          console.error('Erreur lors de la suppression de la note : ', error);
-        }
-      };
-      const handleChange = (event) => {
-        const {name, value} = event.currentTarget;
-        setCurrentNotes({...currentNotes, [name] : value})
+    } catch (error) {
+      console.log(error);
     }
-    const handleModify = async () => {
-      try {
-        await notesService.modifyNoteById(notes.id_notes, currentNotes);
-        fetchNotes();
-        handleClose()
-      }catch (error) {
-        console.log('Erreur lors de la modification de la note : ', error);
-      }
+  };
+
+  const [hovered, setHovered] = useState(false); // État pour gérer le survol
+
+  const handleMouseEnter = () => {
+    setHovered(true); // Définir hovered à true au survol de la carte
+  };
+
+  const handleMouseLeave = () => {
+    setHovered(false); // Définir hovered à false lorsque la souris quitte la carte
+  };
+  const handleDelete = async () => {
+    try {
+      await notesService.deleteNoteById(notes.id_notes);
+      fetchNotes(); // Actualiser les notes après la suppression
+    } catch (error) {
+      console.error("Erreur lors de la suppression de la note : ", error);
     }
+  };
+  const handleChange = (event) => {
+    const { name, value } = event.currentTarget;
+    setCurrentNotes({ ...currentNotes, [name]: value });
+  };
+  const handleModify = async () => {
+    try {
+      await notesService.modifyNoteById(notes.id_notes, currentNotes);
+      fetchNotes();
+      handleClose();
+    } catch (error) {
+      console.log("Erreur lors de la modification de la note : ", error);
+    }
+  };
 
-    return (<>
-
-        <Card
+  return (
+    <>
+      <Card
         className="postit"
-        style={{ width: "18rem", backgroundColor: divColor }}
+        style={{
+          width: "18rem",
+          backgroundColor: notes.couleur ? notes.couleur : divColor
+        }}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
       >
@@ -59,7 +69,7 @@ const NotesAffichage = ({notes, fetchNotes}) => {
           <Card.Title>{notes.titre}</Card.Title>
           <Card.Text>{notes.contenu}</Card.Text>
         </Card.Body>
-                <div className="card-buttons mt-auto text-right">
+        <div className="card-buttons mt-auto text-right">
           {/* Condition pour afficher les boutons */}
           {hovered && (
             <>
@@ -81,7 +91,7 @@ const NotesAffichage = ({notes, fetchNotes}) => {
                   onClick={() => changeColor("#ffa")}
                 ></button>
               </div>
-          {/* Bouton avec icône crayon */}
+              {/* Bouton avec icône crayon */}
               <Button
                 variant="link"
                 className="text-dark p-0 opacity-70"
@@ -101,8 +111,6 @@ const NotesAffichage = ({notes, fetchNotes}) => {
               >
                 <FaTrash size={20} style={{ color: "black" }} />
               </Button>
-
-
             </>
           )}
         </div>
@@ -113,18 +121,26 @@ const NotesAffichage = ({notes, fetchNotes}) => {
         </Modal.Header>
         <Modal.Body>
           <Form>
-            <Form.Group className="mb-3" >
+            <Form.Group className="mb-3">
               <Form.Label>Titre</Form.Label>
-              <Form.Control value={currentNotes.titre} onChange={handleChange} name="titre"
+              <Form.Control
+                value={currentNotes.titre}
+                onChange={handleChange}
+                name="titre"
                 type="text"
                 placeholder="Entrez votre titre"
                 autoFocus
               />
             </Form.Group>
-            <Form.Group
-              className="mb-3">
+            <Form.Group className="mb-3">
               <Form.Label>Texte</Form.Label>
-              <Form.Control as="textarea" rows={5} value={currentNotes.contenu} onChange={handleChange} name="contenu" />
+              <Form.Control
+                as="textarea"
+                rows={5}
+                value={currentNotes.contenu}
+                onChange={handleChange}
+                name="contenu"
+              />
             </Form.Group>
           </Form>
         </Modal.Body>
@@ -137,8 +153,8 @@ const NotesAffichage = ({notes, fetchNotes}) => {
           </Button>
         </Modal.Footer>
       </Modal>
-      </>);
+    </>
+  );
 };
-
 
 export default NotesAffichage;

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : jeu. 23 nov. 2023 à 08:18
+-- Généré le : ven. 24 nov. 2023 à 14:31
 -- Version du serveur : 8.0.31
 -- Version de PHP : 8.0.26
 
@@ -33,18 +33,22 @@ CREATE TABLE IF NOT EXISTS `notes` (
   `contenu` text,
   `id_notes` int NOT NULL AUTO_INCREMENT,
   `id_utilisateur` int NOT NULL,
+  `couleur` varchar(20) NOT NULL,
   PRIMARY KEY (`id_notes`),
   KEY `fk_user` (`id_utilisateur`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Déchargement des données de la table `notes`
 --
 
-INSERT INTO `notes` (`titre`, `contenu`, `id_notes`, `id_utilisateur`) VALUES
-('z', 'eae', 11, 1),
-('zer', 'qsdfzeerty', 12, 1),
-('azeazea', 'eazerez', 13, 2);
+INSERT INTO `notes` (`titre`, `contenu`, `id_notes`, `id_utilisateur`, `couleur`) VALUES
+('azeazea', 'eazerez', 13, 2, ''),
+('undefined', 'undefined', 19, 1, ''),
+('Travail', 'Prend un stylo', 20, 1, 'lightcoral'),
+('Noel', 'acheter des cadeaux', 21, 1, ''),
+('Ne pas oublier', 'aller chercher les enfants', 22, 1, 'lightsteelblue'),
+('Jeux', '', 23, 1, '');
 
 -- --------------------------------------------------------
 

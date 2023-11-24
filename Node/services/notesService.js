@@ -39,7 +39,7 @@ const deleteNoteById = (notesId) => {
 }
 const modifyNoteById = (notesId, notes) => {
     return new Promise((resolve, reject) => {
-        let sql = `UPDATE notes SET titre = '${notes.titre}', contenu = '${notes.contenu}' WHERE id_notes = ` + notesId;
+        let sql = `UPDATE notes SET titre = '${notes.titre}', contenu = '${notes.contenu}', couleur = '${notes.couleur}' WHERE id_notes = ` + notesId;
         let query = conn.query(sql, (err, result, field) => {
             if(err) return reject(err);
             resolve(result);
