@@ -29,7 +29,7 @@ const NotesPage = () => {
         </div>
         <div className="notes-container">
             {notes.map(n => {
-            return <NotesAffichage key={notes.id_notes} notes={n}/>})}
+            return <NotesAffichage key={notes.id_notes} notes={n} fetchNotes={fetchNotesByIdUti}/>})}
         </div>
     </main>;
 

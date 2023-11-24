@@ -32,9 +32,19 @@ router.get("/:user", (req, res) => {
         res.json({"message" : "Error" + err.sqlMessage})
     });
 });
-router.get("/:notesId", (req, res) => {
+router.delete("/:notesId", (req, res) => {
     const deleteNotes = req.params.notesId;
     notesService.deleteNoteById(deleteNotes).then(result => {
+        res.status(200)
+        res.json(result);
+    }).catch(err => {
+        console.error("Oops...", err);
+        res.json({"message" : "Error" + err.sqlMessage})
+    });
+});
+router.patch("/:notesId", (req, res) => {
+    const modifyNotes = req.params.notesId;
+    notesService.modifyNoteById(modifyNotes, req.body).then(result => {
         res.status(200)
         res.json(result);
     }).catch(err => {

@@ -18,9 +18,14 @@ function addNotes(notes){
 function deleteNoteById(noteId) {
     return axios.delete(`http://127.0.0.1:3000/notes/${noteId}`);
   }
+function modifyNoteById(noteId, notes) {
+    return axios.patch(`http://127.0.0.1:3000/notes/${noteId}`, notes);
+  }
+
 export default {
     fetchNotes,
     addNotes,
     fetchNotesByIdUti,
-    deleteNoteById
+    deleteNoteById,
+    modifyNoteById
 }
