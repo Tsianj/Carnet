@@ -28,8 +28,18 @@ const fetchNotesByIdUti = (user) => {
         });
     });
 }
+const deleteNoteById = (notesId) => {
+    return new Promise((resolve, reject) => {
+        let sql = `DELETE FROM notes WHERE id_notes = ` + notesId;
+        let query = conn.query(sql, (err, result, field) => {
+            if(err) return reject(err);
+            resolve(result);
+        });
+    });
+}
 module.exports= {
     fetchNotes,
     addNotes,
-    fetchNotesByIdUti
+    fetchNotesByIdUti,
+    deleteNoteById
 }

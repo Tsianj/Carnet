@@ -32,4 +32,14 @@ router.get("/:user", (req, res) => {
         res.json({"message" : "Error" + err.sqlMessage})
     });
 });
+router.get("/:notesId", (req, res) => {
+    const deleteNotes = req.params.notesId;
+    notesService.deleteNoteById(deleteNotes).then(result => {
+        res.status(200)
+        res.json(result);
+    }).catch(err => {
+        console.error("Oops...", err);
+        res.json({"message" : "Error" + err.sqlMessage})
+    });
+});
 module.exports = router;

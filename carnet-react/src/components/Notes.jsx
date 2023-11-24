@@ -24,11 +24,10 @@ const handleAdd = async () => {
     try{
       notes.id_utilisateur = user.id_utilisateur;
         const response = await notesService.addNotes(notes);
-        console.log(response);
         toast.success("La note "+ notes.titre + " à bien été crée");
         setShow(false)
         fetchNotesByIdUti()
-        
+        setNotes({ titre: '', contenu: '' }); // Réinitialisation du formulaire
     }catch (e){
         console.log(e)
     }
