@@ -29,4 +29,14 @@ router.post("/", (req, res) => {
       res.send({ message: "Votre ajout ne s'est pas bien passé" });
     });
 });
+router.get("/:user", (req, res) => {
+  const utilisateur = req.params.user;
+  utilisateurService.fetchUtiById(utilisateur).then(result => {
+      res.status(200)
+      res.json(result);
+  }).catch(err => {
+      console.error("Oops...", err);
+      res.json({"message" : "Error" + err.sqlMessage})
+  });
+});
 module.exports = router;
